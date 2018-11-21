@@ -40,3 +40,20 @@ In order to clean up the whole environment, you can use the following command:
 	ansible-playbook -vvv playbooks/teardown.yaml -i inventory/hosts.dev
 
 
+----
+
+Changes for minimal test
+========================
+
+```
+export IGNITION_DIR=~/.openshift-installer/cluster
+export IGNITION_CLUSTER_DOMAIN=local.spotsnel.net
+export IGNITION_CLUSTER_NAME=cluster
+ln -s ~gbraad/.cache/openshift-install/libvirt/image/8d2cb1f8b4e6e4cf754d05f5c742e8ae ./files/rhcos-qemu.qcow2
+qemu-img create -f qcow2 -o size=2G files/empty_disk.qcow2
+ansible-playbook playbooks/build.yaml -i inventory/hosts.dev
+ssh core@cluster-bootstrap.local.spotsnel.net
+ssh core@cluster-master-0.local.spotsnel.net
+export WORKSPACE=~/.tmp
+ansible-playbook playbooks/finish_cluster_deploy.yaml -i inventory/hosts.dev
+```

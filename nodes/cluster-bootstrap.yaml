@@ -1,8 +1,8 @@
 ---
-vm_name: server01
+vm_name: cluster-bootstrap
 vm_disk: rhcos-qemu.qcow2
 vm_type: coreos
-vm_memory: 4
+vm_memory: 2
 vnc_port: 5901
 
 netlab_mgmt_source_bridge: br0
